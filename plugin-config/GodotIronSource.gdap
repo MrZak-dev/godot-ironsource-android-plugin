@@ -1,0 +1,25 @@
+[config]
+
+name="GodotIronSource"
+binary_type="local"
+binary="GodotIronSource.1.0.0.aar"
+
+[dependencies]
+
+custom_maven_repos=["https://android-sdk.is.com/"]
+remote=["com.ironsource.sdk:mediationsdk:7.1.8" , 
+"com.ironsource.adapters:unityadsadapter:4.3.13",
+"com.ironsource.adapters:adcolonyadapter:4.3.8",
+"com.ironsource.adapters:applovinadapter:4.3.26",
+"com.ironsource.adapters:facebookadapter:4.3.28",
+"com.ironsource.adapters:admobadapter:4.3.21",
+"com.ironsource.adapters:chartboostadapter:4.3.6",
+"com.google.android.gms:play-services-ads-identifier:17.0.0",
+"com.google.android.gms:play-services-basement:17.1.1",
+"com.google.android.gms:play-services-ads:20.2.0",
+"com.unity3d.ads:unity-ads:3.7.5",
+"com.adcolony:sdk:4.5.0",
+"com.applovin:applovin-sdk:10.3.1",
+"com.facebook.android:audience-network-sdk:6.5.1",
+"com.chartboost:chartboost-sdk:8.2.1"]
+"androidx.multidex:multidex:2.0.1",

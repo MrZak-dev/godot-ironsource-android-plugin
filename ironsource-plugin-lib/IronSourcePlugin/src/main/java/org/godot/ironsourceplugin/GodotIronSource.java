@@ -84,10 +84,10 @@ public class GodotIronSource extends GodotPlugin {
         signals.add(new SignalInfo("on_rewarded_availability_changed",Boolean.class));
         signals.add(new SignalInfo("on_rewarded_opened"));
         signals.add(new SignalInfo("on_rewarded_closed"));
-        signals.add(new SignalInfo("on_reward"));
+        signals.add(new SignalInfo("on_rewarded"));
 
         // Interstitial
-        signals.add(new SignalInfo("on_interstitial_ready"));
+        signals.add(new SignalInfo("on_interstitial_loaded"));
         signals.add(new SignalInfo("on_interstitial_opened"));
         signals.add(new SignalInfo("on_interstitial_closed"));
 
@@ -143,7 +143,7 @@ public class GodotIronSource extends GodotPlugin {
 
                 @Override
                 public void onRewardedVideoAdRewarded(Placement placement) {
-                    emitSignal("on_reward");
+                    emitSignal("on_rewarded");
                 }
 
                 @Override
@@ -166,9 +166,10 @@ public class GodotIronSource extends GodotPlugin {
 
     @UsedByGodot
     public void showRewarded(){
-        if(!IronSource.isRewardedVideoAvailable())
+        if (!IronSource.isRewardedVideoAvailable()){
+            emitSignal("on_plugin_error","Rewarded is NOT READY");
             return;
-
+        }
         IronSource.showRewardedVideo();
     }
 
@@ -185,14 +186,14 @@ public class GodotIronSource extends GodotPlugin {
             InterstitialListener interstitialListener = new InterstitialListener() {
                 @Override
                 public void onInterstitialAdReady() {
-                    emitSignal("on_interstitial_ready");
+                    emitSignal("on_interstitial_loaded");
                     Log.d(TAG, "onInterstitialAdReady: ");
                     IntegrationHelper.validateIntegration(activity);
                 }
 
                 @Override
                 public void onInterstitialAdLoadFailed(IronSourceError ironSourceError) {
-
+                    emitSignal("on_plugin_error",ironSourceError.getErrorMessage());
                 }
 
                 @Override
@@ -245,8 +246,10 @@ public class GodotIronSource extends GodotPlugin {
 
     @UsedByGodot
     public void showInterstitial(){
-        if (!IronSource.isInterstitialReady())
+        if (!IronSource.isInterstitialReady()){
+            emitSignal("on_plugin_error","Interstitial is NOT READY");
             return;
+        }
         IronSource.showInterstitial();
     }
 
